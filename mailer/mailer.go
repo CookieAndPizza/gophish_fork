@@ -9,6 +9,7 @@ import (
 	"github.com/gophish/gomail"
 	log "github.com/gophish/gophish/logger"
 	"github.com/sirupsen/logrus"
+	"time"
 )
 
 // MaxReconnectAttempts is the maximum number of times we should reconnect to a server
@@ -77,7 +78,6 @@ func NewMailWorker() *MailWorker {
 // Start launches the mail worker to begin listening on the Queue channel
 // for new slices of Mail instances to process.
 func (mw *MailWorker) Start(ctx context.Context) {
-	log.Warn("THIS IS A TEST")
 	for {
 		select {
 		case <-ctx.Done():
@@ -160,7 +160,7 @@ func sendMail(ctx context.Context, dialer Dialer, ms []Mail) {
 			m.Error(err)
 			continue
 		}
-
+		time.Sleep(10000 * time.Millisecond)
 		err = gomail.Send(sender, message)
 		if err != nil {
 			if te, ok := err.(*textproto.Error); ok {
