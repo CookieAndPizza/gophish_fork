@@ -77,6 +77,7 @@ func NewMailWorker() *MailWorker {
 // Start launches the mail worker to begin listening on the Queue channel
 // for new slices of Mail instances to process.
 func (mw *MailWorker) Start(ctx context.Context) {
+	log.Warn("THIS IS A TEST")
 	for {
 		select {
 		case <-ctx.Done():
